@@ -8,7 +8,6 @@ function fechGlobal() {
     })
     .then((data) => {
       let global = data.Global;
-      console.log(global);
       buildTableGlobal();
 
       function buildTableGlobal() {
@@ -60,7 +59,7 @@ southAfricaSummary();
 
 function fechSouthAfrica() {
   fetch(
-    "https://api.covid19api.com/country/south-africa?from=2020-03-01T00:00:00Z&to=2020-04-01T00:00:00Z"
+    "https://api.covid19api.com/country/south-africa?from=2020-03-01T00:00:00Z&to=2020-11-01T00:00:00Z"
   )
     .then((response) => {
       if (!response.ok) {
@@ -69,8 +68,45 @@ function fechSouthAfrica() {
       return response.json();
     })
     .then((data) => {
-      console.log(data);
 
+      let totalconfimed = [],
+           Totalrecovered = [],
+           TotalDeath =[]
+      for(let i=0; i < data.length; i++){
+        
+        totalconfimed.push(data[i].Confirmed)
+        Totalrecovered.push(data[i].Recovered)
+        TotalDeath.push(data[i].Deaths)
+      }
+      let confirmed = totalconfimed.reduce(function(first, second) { return first + second; }, 0);
+      let recovered = Totalrecovered.reduce(function(first, second) { return first + second; }, 0);
+      let Deaths = TotalDeath.reduce(function(first, second) { return first + second }, 0);
+       confirmed = Math.floor(confirmed/9)
+       recovered = Math.floor(recovered/9)
+       Deaths = Math.floor(Deaths/9)
+      
+      buildPrediction();
+      function buildPrediction() {
+        var table = document.getElementById("prediction");
+        var row = `<tr> 
+                         
+                          <td>${confirmed}</td>
+                          <td>${recovered}</td>
+                          <td>${Deaths}</td>
+                         
+                    </tr>`;
+        table.innerHTML += row;
+      }
+    
+    var mtT = document.getElementById("predictionData")
+    var btn = document.getElementById("pred")
+    btn.addEventListener('click', showPred)
+    function showPred(){
+      mtT.style.visibility = "visible"
+    }
+
+     
+     
       var col = [];
       for (var i = 0; i < data.length; i++) {
         for (var key in data[i]) {

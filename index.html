@@ -16,7 +16,7 @@
 <body>
 
     <div>
-        <h2>Global Daily cases Summary</h2>
+        <h3>Global Daily cases Summary</h3>
 
         <table class="table table-striped">
             <tr class="bg-info">
@@ -34,7 +34,7 @@
         </table>
     </div>
     <div>
-    <h2>South Africa Daily cases Summary</h2>
+    <h3>South Africa Daily cases Summary</h3>
     <table class="table table-striped">
         <tr class="bg-info">
             <th>Date</th>
@@ -50,8 +50,23 @@
         </tbody>
     </table>
     </div>
+
+    <div>
+    <table id="predictionData">
+        <tr class="bg-info">
+            <th>Confirmed</th>
+            <th>Recovered</th>
+            <th>Deaths</th>
+        </tr>
+
+        <tbody id="prediction">
+
+        </tbody>
+    </table>
+    </div>
+    <button id="pred">Total Confirmed in 12 months</button>
     <div class="allCases">
-        <h2>All Cases South Africa</h2>
+        <h3>All Cases South Africa</h3>
         <p id="showData"></p>
 
     </div>

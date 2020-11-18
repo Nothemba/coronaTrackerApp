@@ -28,3 +28,7 @@ h2{
     font: Verdana;
    margin-top: 50px
 }
+#predictionData{
+    visibility: hidden;
+  
+}
