@@ -19,12 +19,15 @@ function fechGlobal() {
                         <td>${global.NewDeaths}</td>
                         <td>${global.TotalConfirmed}</td>
                         <td>${global.TotalRecovered}</td>
+                        <td>${global.TotalDeaths}</td>
                   </tr>`;
         table.innerHTML += row;
       }
     });
 }
 fechGlobal();
+
+
 
 function southAfricaSummary() {
   fetch("https://api.covid19api.com/summary")
@@ -38,8 +41,8 @@ function southAfricaSummary() {
       let SouthAfrica = data.Countries[158];
       let date = SouthAfrica.Date;
       let d = new Date(date);
-      let newDate = d.toLocaleString("en-AU")
-      
+      let newDate = d.toLocaleString("en-AU");
+
       buildTableSouthAfrica();
       function buildTableSouthAfrica() {
         var table = document.getElementById("southa-africa");
@@ -53,9 +56,10 @@ function southAfricaSummary() {
         table.innerHTML += row;
       }
     });
-   
 }
 southAfricaSummary();
+
+
 
 function fechSouthAfrica() {
   fetch(
@@ -68,23 +72,27 @@ function fechSouthAfrica() {
       return response.json();
     })
     .then((data) => {
-
       let totalconfimed = [],
-           Totalrecovered = [],
-           TotalDeath =[]
-      for(let i=0; i < data.length; i++){
-        
-        totalconfimed.push(data[i].Confirmed)
-        Totalrecovered.push(data[i].Recovered)
-        TotalDeath.push(data[i].Deaths)
+        Totalrecovered = [],
+        TotalDeath = [];
+      for (let i = 0; i < data.length; i++) {
+        totalconfimed.push(data[i].Confirmed);
+        Totalrecovered.push(data[i].Recovered);
+        TotalDeath.push(data[i].Deaths);
       }
-      let confirmed = totalconfimed.reduce(function(first, second) { return first + second; }, 0);
-      let recovered = Totalrecovered.reduce(function(first, second) { return first + second; }, 0);
-      let Deaths = TotalDeath.reduce(function(first, second) { return first + second }, 0);
-       confirmed = Math.floor(confirmed/9)
-       recovered = Math.floor(recovered/9)
-       Deaths = Math.floor(Deaths/9)
-      
+      let confirmed = totalconfimed.reduce(function (first, second) {
+        return first + second;
+      }, 0);
+      let recovered = Totalrecovered.reduce(function (first, second) {
+        return first + second;
+      }, 0);
+      let Deaths = TotalDeath.reduce(function (first, second) {
+        return first + second;
+      }, 0);
+      confirmed = Math.floor(confirmed / 9);
+      recovered = Math.floor(recovered / 9);
+      Deaths = Math.floor(Deaths / 9);
+
       buildPrediction();
       function buildPrediction() {
         var table = document.getElementById("prediction");
@@ -97,16 +105,14 @@ function fechSouthAfrica() {
                     </tr>`;
         table.innerHTML += row;
       }
-    
-    var mtT = document.getElementById("predictionData")
-    var btn = document.getElementById("pred")
-    btn.addEventListener('click', showPred)
-    function showPred(){
-      mtT.style.visibility = "visible"
-    }
 
-     
-     
+      var mtT = document.getElementById("predictionData");
+      var btn = document.getElementById("pred");
+      btn.addEventListener("click", showPred);
+      function showPred() {
+        mtT.style.visibility = "visible";
+      }
+
       var col = [];
       for (var i = 0; i < data.length; i++) {
         for (var key in data[i]) {
@@ -119,10 +125,10 @@ function fechSouthAfrica() {
       }
       var table = document.createElement("table");
 
-      var tr = table.insertRow(-1); 
+      var tr = table.insertRow(-1);
 
       for (var i = 0; i < col.length; i++) {
-        var th = document.createElement("th"); 
+        var th = document.createElement("th");
         th.innerHTML = col[i];
         tr.appendChild(th);
       }
