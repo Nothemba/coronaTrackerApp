@@ -11,8 +11,8 @@ function fechGlobal() {
       buildTableGlobal();
 
       function buildTableGlobal() {
-        var table = document.getElementById("global-table");
-        var row = `<tr>
+        let table = document.getElementById("global-table");
+        let row = `<tr>
                         
                         <td>${global.NewDeaths}</td>
                         <td>${global.NewRecovered}</td>
@@ -45,8 +45,8 @@ function southAfricaSummary() {
 
       buildTableSouthAfrica();
       function buildTableSouthAfrica() {
-        var table = document.getElementById("southa-africa");
-        var row = `<tr> 
+        let table = document.getElementById("southa-africa");
+        let row = `<tr> 
                           <td>${newDate}</td>
                           <td>${SouthAfrica.NewConfirmed}</td>
                           <td>${SouthAfrica.NewDeaths}</td>
@@ -80,23 +80,23 @@ function fechSouthAfrica() {
         Totalrecovered.push(data[i].Recovered);
         TotalDeath.push(data[i].Deaths);
       }
-      let confirmed = totalconfimed.reduce(function (first, second) {
+      let confirmed = totalconfimed.reduce( (first, second)=> {
         return first + second;
       }, 0);
-      let recovered = Totalrecovered.reduce(function (first, second) {
+      let recovered = Totalrecovered.reduce((first, second)=> {
         return first + second;
       }, 0);
-      let Deaths = TotalDeath.reduce(function (first, second) {
+      let Deaths = TotalDeath.reduce((first, second)=> {
         return first + second;
       }, 0);
       confirmed = Math.floor(confirmed / 9);
       recovered = Math.floor(recovered / 9);
       Deaths = Math.floor(Deaths / 9);
 
-      buildPrediction();
-      function buildPrediction() {
-        var table = document.getElementById("prediction");
-        var row = `<tr> 
+      buildPredictionTable();
+      function buildPredictionTable() {
+        let table = document.getElementById("prediction");
+        let row = `<tr> 
                          
                           <td>${confirmed}</td>
                           <td>${recovered}</td>
@@ -105,17 +105,17 @@ function fechSouthAfrica() {
                     </tr>`;
         table.innerHTML += row;
       }
-
-      var mtT = document.getElementById("predictionData");
-      var btn = document.getElementById("pred");
-      btn.addEventListener("click", showPred);
+      
+      let predictionData = document.getElementById("predictionData");
+      let btnPredict = document.getElementById("pred");
+      btnPredict.addEventListener("click", showPred);
       function showPred() {
-        mtT.style.visibility = "visible";
+        predictionData.style.visibility = "visible";
       }
 
       var col = [];
-      for (var i = 0; i < data.length; i++) {
-        for (var key in data[i]) {
+      for (let i = 0; i < data.length; i++) {
+        for (let key in data[i]) {
           if (`${data[i][key]}` !== "") {
             if (col.indexOf(key) === -1) {
               col.push(key);
@@ -123,25 +123,25 @@ function fechSouthAfrica() {
           }
         }
       }
-      var table = document.createElement("table");
+      let table = document.createElement("table");
 
-      var tr = table.insertRow(-1);
+      let tr = table.insertRow(-1);
 
-      for (var i = 0; i < col.length; i++) {
-        var th = document.createElement("th");
+      for (let i = 0; i < col.length; i++) {
+        let th = document.createElement("th");
         th.innerHTML = col[i];
         tr.appendChild(th);
       }
 
-      for (var i = 0; i < data.length; i++) {
+      for (let i = 0; i < data.length; i++) {
         tr = table.insertRow(-1);
 
-        for (var j = 0; j < col.length; j++) {
-          var tabCell = tr.insertCell(-1);
+        for (let j = 0; j < col.length; j++) {
+          let tabCell = tr.insertCell(-1);
           tabCell.innerHTML = data[i][col[j]];
         }
       }
-      var divContainer = document.getElementById("showData");
+      let divContainer = document.getElementById("showData");
       divContainer.innerHTML = "";
       divContainer.appendChild(table);
     })
